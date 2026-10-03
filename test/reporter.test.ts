@@ -1,4 +1,4 @@
-import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
+import { afterEach, beforeEach, describe, expect, it, vi, type MockInstance } from 'vitest';
 import BliprReporter from '../src/index';
 import { formatDuration } from '../src/format';
 import { config, fakeSuite, fakeTest, run, stubFetch } from './helpers';
@@ -11,8 +11,8 @@ const MIXED = [
   fakeTest('later', 'skipped'),
 ];
 
-let warn: ReturnType<typeof vi.spyOn>;
-let log: ReturnType<typeof vi.spyOn>;
+let warn: MockInstance<typeof console.warn>;
+let log: MockInstance<typeof console.log>;
 
 beforeEach(() => {
   for (const key of Object.keys(process.env)) {
