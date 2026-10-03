@@ -1,0 +1,27 @@
+name: Lint PR title
+
+# Runs on pull_request_target so the check uses THIS workflow file from the
+# base branch (main) for every PR — including PRs whose head branch was cut
+# before this workflow existed. A plain `pull_request` trigger reads the
+# workflow from the PR's own branch, so those PRs silently get no check. We
+# only read the PR title via the API and never check out PR code, so
+# pull_request_target is safe here.
+#
+# PRs are squash-merged, so the PR title becomes the commit subject on main.
+# Keep it a valid Conventional Commit (feat:, fix:, chore: …): release-please
+# builds the version bump and changelog from it.
+on:
+  pull_request_target:
+    types: [opened, edited, reopened, synchronize]
+
+permissions:
+  pull-requests: write
+
+jobs:
+  validate:
+    name: Validate title
+    runs-on: ubuntu-latest
+    steps:
+      - uses: amannn/action-semantic-pull-request@v5
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
