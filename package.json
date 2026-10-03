@@ -1,6 +1,6 @@
 {
   "name": "@blipr/playwright",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "Playwright reporter that sends your test results to your iPhone with Blipr when a run finishes.",
   "type": "module",
   "main": "./dist/index.cjs",
